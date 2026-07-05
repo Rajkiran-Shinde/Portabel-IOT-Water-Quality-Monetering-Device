@@ -278,17 +278,6 @@ Because of that, this README intentionally does not include build/flash/installa
 
 ---
 
-## ⚠️ Security Notice (read before you push this repo anywhere public)
-
-`include/config.h` in this codebase currently hardcodes the **WiFi SSID/password** and the **Firebase Web API key + Database URL** in plaintext (the Twilio SID/Auth Token block is present but commented out). That's a reasonable shortcut for a single offline prototype sitting on a bench, but it becomes a real exposure the moment this repository is pushed to a public GitHub remote — anyone can read those values out of the commit history even after they're later removed.
-
-Before publishing this repo:
-- Move all credentials out of `config.h` and into a file that's listed in `.gitignore` (a `secrets.h` that `config.h` includes, for example), or supply them as PlatformIO build flags.
-- If this repository (or an earlier version of it) has already been pushed publicly with real keys in place, treat the Firebase API key as compromised: rotate it and review your Realtime Database security rules to confirm they don't allow unauthenticated public read/write.
-- Keep the Twilio block commented out (as it already is) or move it to the same gitignored secrets file — don't uncomment it in a commit.
-
----
-
 ## Future Improvements
 
 - **Wire up the turbidity sensor.** `turbidity.h`/`turbidity.cpp` exist as empty scaffolding, and the Firebase payload currently pushes a hardcoded placeholder (`0.5`) in the `turbidity` field — this is the most immediate gap between what's modeled and what's implemented.
@@ -302,7 +291,7 @@ Before publishing this repo:
 
 ## Author
 
-Maintained as part of an embedded systems / IoT product engineering portfolio, combining FreeRTOS-based firmware architecture, analog sensor signal processing, and cloud/SMS integration on the ESP32 platform.
+Rajkiran Shinde, Maintained as part of an embedded systems / IoT product engineering portfolio, combining FreeRTOS-based firmware architecture, analog sensor signal processing, and cloud/SMS integration on the ESP32 platform.
 
 ## License
 
