@@ -1,6 +1,6 @@
 <div align="center">
 
-# 💧 Portable IoT Water Quality Monitoring Device
+# Portable IoT Water Quality Monitoring Device
 
 **A dual-core ESP32 firmware for real-time pH, TDS, hardness, salinity and temperature monitoring — with a local dashboard, cloud telemetry, and SMS-based alerting.**
 
@@ -10,7 +10,10 @@
 ![RTOS](https://img.shields.io/badge/RTOS-FreeRTOS%20Dual--Core-brightgreen)
 ![Filesystem](https://img.shields.io/badge/filesystem-LittleFS-lightgrey)
 ![Cloud](https://img.shields.io/badge/cloud-Firebase%20RTDB-yellow?logo=firebase)
-![License](https://img.shields.io/badge/license-MIT-informational)
+![Status](https://img.shields.io/badge/status-private%20%2F%20under%20development-critical)
+![License](https://img.shields.io/badge/license-All%20Rights%20Reserved-red)
+
+**Live dashboard:** [wqiv1-7588d.firebaseapp.com](https://wqiv1-7588d.firebaseapp.com/index.html) *(private deployment — see [Project Status](#project-status) below)*
 
 </div>
 
@@ -42,7 +45,7 @@ Finally, the system was designed to be **field-configurable without a laptop.** 
 |---|---|---|
 | ![Sensor Placement](Images/H1,%20Sensor%20Placement.jpg) | ![Internal](Images/H2,%20Internal%20Sneek%20Pic.jpg) | ![Outer Body](Images/H3,%20Outer%20Body.jpg) |
 
-> **Note on the screenshots above:** the dashboard UI (`index.html` / CSS / JS) that these screenshots show is what the firmware's web server is built to serve from LittleFS, but the static frontend source isn't checked into this snapshot of the repository — only the firmware (`src/`, `include/`) and the raw images are present. See [Folder Structure](#folder-structure) for what's actually versioned here.
+> **Note on the screenshots above:** the dashboard UI (`index.html` / CSS / JS) that these screenshots show is what the firmware's web server is built to serve from LittleFS, and the same interface is also deployed separately to Firebase Hosting at **[wqiv1-7588d.firebaseapp.com](https://wqiv1-7588d.firebaseapp.com/index.html)**. The static frontend source isn't checked into this snapshot of the repository — only the firmware (`src/`, `include/`) and the raw images are present. See [Folder Structure](#folder-structure) for what's actually versioned here.
 
 ---
 
@@ -267,29 +270,11 @@ Portabel-IOT-Water-Quality-Monetering-Device/
 
 ---
 
-## Installation
+## Project Status
 
-1. **Install PlatformIO** (VS Code extension, or PlatformIO Core CLI).
-2. **Clone the repository** and open it as a PlatformIO project.
-3. **Wire the hardware** per the [Hardware Pinout](#hardware-pinout) table above.
-4. **Set your own credentials in `include/config.h`** before building — see the [Security Notice](#-security-notice-read-before-you-push-this-repo-anywhere-public) below; do not reuse the placeholder values checked into this repo.
-5. **Build and upload the firmware:**
-   ```bash
-   pio run --target upload
-   ```
-6. **Provide the dashboard files** (`index.html`, CSS, JS) in a `data/` directory at the project root, then upload the filesystem image:
-   ```bash
-   pio run --target uploadfs
-   ```
-7. **Open the Serial Monitor** at `115200` baud to confirm WiFi connection, LittleFS mount, and Firebase auth.
+This project is **actively under private development** and is not published for public deployment, redistribution, or contribution at this stage. Hardware, firmware, and the connected Firebase/Twilio backend are all still evolving (see the gaps listed in [Future Improvements](#future-improvements)), and the live dashboard at [wqiv1-7588d.firebaseapp.com](https://wqiv1-7588d.firebaseapp.com/index.html) is a private working deployment tied to this specific device, not a general-purpose demo.
 
-## Usage
-
-1. Power the device; it connects to the WiFi network configured in `config.h` and prints its status to Serial.
-2. Visit `http://wqi.local` (or the device's IP shown in the Serial log) from any device on the same network.
-3. Open the dashboard's alert settings panel to enter Twilio credentials and a destination phone number — this is written straight to NVS flash, no reflash required.
-4. Choose a monitoring mode in Firebase (`constant` for continuous logging, or leave it as anything else to use trigger mode) and, if using trigger mode, flip `settings/monitoring_control/trigger_reading` to request a one-off stabilized reading.
-5. Watch the buzzer and SMS alerts respond automatically as pH, TDS, and hardness are evaluated against the built-in thresholds.
+Because of that, this README intentionally does not include build/flash/installation instructions — the project isn't at a stage where third-party setup is supported, and per the license notice below, it isn't authorized for use by other developers without the author's explicit permission.
 
 ---
 
@@ -320,4 +305,9 @@ Before publishing this repo:
 Maintained as part of an embedded systems / IoT product engineering portfolio, combining FreeRTOS-based firmware architecture, analog sensor signal processing, and cloud/SMS integration on the ESP32 platform.
 
 ## License
-Copyright © 2026 Rajkiran Shinde. All Rights Reserved. See the [LICENSE](LICENSE) file for more information.
+
+**All Rights Reserved.**
+
+This project is proprietary and is currently under private development. No license, express or implied, is granted for use, copying, modification, merging, publishing, distribution, or redistribution of this codebase, in whole or in part, by any third party without the author's prior written permission. This applies to the firmware in this repository as well as the connected Firebase backend and hosted dashboard.
+
+If you're interested in using, contributing to, or building on this project, please reach out to the author directly rather than forking or redistributing it.
